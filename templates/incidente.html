@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrar Incidente</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="navbar">
+        <a href="/">Início</a>
+        <a href="/solicitacoes">Listar Solicitações</a>
+        <a href="/adicionar_solicitacao">Adicionar Solicitação</a>
+        <a href="/logout" style="float: right;">Logout</a>
+    </div>
+
+    <div class="container">
+        <h2>Registrar Incidente</h2>
+        <form action="" method="POST">
+            <label for="descricao">Descrição do Incidente:</label>
+            <textarea id="descricao" name="descricao" rows="4" required></textarea><br><br>
+            <button type="submit">Registrar Incidente</button>
+        </form>
+    </div>
+</body>
+</html>

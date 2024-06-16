@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solicitações</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="{{ url_for('index') }}">Início</a>
+        <a href="{{ url_for('adicionar_solicitacao') }}">Adicionar Solicitação</a>
+        <a href="{{ url_for('logout') }}">Sair</a>
+    </nav>
+    <div class="container">
+        <h1>Solicitações de Transporte</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Paciente</th>
+                    <th>Localização</th>
+                    <th>Prioridade</th>
+                    <th>Status</th>
+                    <th>Incidentes</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for solicitacao in solicitacoes %}
+                    <tr>
+                        <td>{{ solicitacao.id }}</td>
+                        <td>{{ solicitacao.paciente.nome }}</td>
+                        <td>{{ solicitacao.paciente.localizacao }}</td>
+                        <td>{{ solicitacao.prioridade }}</td>
+                        <td>{{ solicitacao.status }}</td>
+                        <td>
+                            <ul>
+                                {% for incidente in solicitacao.incidentes %}
+                                    <li>{{ incidente }}</li>
+                                {% endfor %}
+                            </ul>
+                        </td>
+                        <td>
+                            {% if solicitacao.status == "Aguardando transporte" %}
+                                <a href="{{ url_for('aceitar_solicitacao', id_solicitacao=solicitacao.id) }}">Aceitar</a>
+                                <a href="{{ url_for('recusar_solicitacao', id_solicitacao=solicitacao.id) }}">Recusar</a>
+                            {% elif solicitacao.status == "Em transporte" %}
+                                <a href="{{ url_for('chegou_ao_destino', id_solicitacao=solicitacao.id) }}">Chegou ao destino</a>
+                            {% endif %}
+                            <a href="{{ url_for('registrar_incidente', id_solicitacao=solicitacao.id) }}">Registrar Incidente</a>
+                            <a href="{{ url_for('remover_solicitacao', id_solicitacao=solicitacao.id) }}">Remover</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
